@@ -1,7 +1,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibHprb3VvIiwiYSI6ImNtMHF6aG04bjAzaDYyanB1MXRqajZzd2gifQ.gc9TIEDHnKq3iKvTwA7sRw';
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/lzkouo/cm6jjlstl004q01s71eyzdgv1',
+    style: 'mapbox://styles/lzkouo/cm72o2z5l009x01s35b82gznc',
     zoom: 5,
     center: [-74, 40.725],
     maxZoom: 15,
@@ -20,6 +20,7 @@ map.on('load', function () {
         }
     }
 
+
     map.addLayer({
         'id': 'turnstileData',
         'type': 'circle',
@@ -29,12 +30,12 @@ map.on('load', function () {
         },
         'paint': {
             'circle-color': ['interpolate', ['linear'], ['get', 'ENTRIES_DIFF'],
-                -1, '#17BA00',
-                -0.7, '#75FA8D',
+                -1, '#FF7200',
+                -0.7, '#FF7F27',
                 -0.4, '#ffffff'
             ],
             'circle-stroke-color': '#ffffff',
-            'circle-stroke-width': 0.5,
+            'circle-stroke-width': 1,
             'circle-radius': ['interpolate', ['exponential', 2], ['zoom'],
                 10, ['interpolate', ['linear'], ['get', 'ENTRIES_DIFF'],
                     -1, 5,
@@ -47,6 +48,34 @@ map.on('load', function () {
             ],
         }
     }, firstSymbolId);
+
+
+    map.addLayer({
+        'id': 'medianIncome',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/medianIncome.geojson'
+        },
+        'paint': {
+            'fill-color': '#000000',
+            'fill-opacity': 0.05,
+        }
+    }, 'water');
+
+    map.addLayer({
+        'id': 'parks_nyc',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/parks_nyc.geojson'
+        },
+        'paint': {
+            'fill-color': '#001170',
+            'fill-opacity': 0.25,
+        }
+    }, 'water');
+
 });
 
 // Create the popup
@@ -68,3 +97,4 @@ map.on('mouseenter', 'turnstileData', function () {
 map.on('mouseleave', 'turnstileData', function () {
     map.getCanvas().style.cursor = '';
 });
+
