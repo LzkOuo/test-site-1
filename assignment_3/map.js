@@ -60,7 +60,7 @@ map.on('load', function () {
         },
         'paint': {
             'fill-color': '#ff7f50',
-            'fill-opacity': 0.5,
+            'fill-opacity': 0.75,
         }
     }, 'water');
 
