@@ -86,7 +86,7 @@ map.on('click', 'turnstileData', function (e) {
     let stationName = e.features[0].properties.stationName;
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(stationName + '<br>' + entriesDiff + '%' + '<br>' + entries_06 + '<br>' + entries_20)
+        .setHTML(stationName + '<br>' + entriesDiff + '<br>' + entries_06 + '<br>' + entries_20)
         .addTo(map);
 });
 // Change the cursor to a pointer when the mouse is over the turnstileData layer.
