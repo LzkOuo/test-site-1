@@ -1,0 +1,81 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Juan Francisco Saldarriaga" />
+    <meta
+      name="keywords"
+      content="mapping, storytelling, urban design, new york"
+    />
+    <title>Assignment 2 - Web Map</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <a
+        class="nav-title"
+        href="../index.html"
+        >Zekun Liu</a
+      >
+    </header>
+    <main>
+      <div class="assignment">
+        <p class="assignment-title">Assignment III A Map for FLUSHING CREEK</p>
+        <section id="about">
+          <p>
+            This is the score ranking of the Water Pollution Index. The redder the color, the higher the score and the higher the ranking; the yellower the color, the lower the score and the lower the ranking.</p>
+        </section>
+        <div id="map11-container" style="position: relative; height: 1000px;">
+          <div id="map11" style="width: 100%; height: 100%;"></div>
+          <div class="map-label">
+            <img src="img\PVSWP.png" alt="Example Image">
+          </div>
+        </div>
+        <section id="about">
+          <p>
+            This is a ranking of the areas around Flushing Creek in terms of pollution pressure to treat on a New York City-wide basis, with darker colors representing more pressure and lighter colors representing less pressure.</p>
+        </section>
+        <div id="map22-container" style="position: relative; height: 1000px;">
+          <div id="map22" style="width: 100%; height: 100%;"></div>
+          <div class="map-label">
+            <img src="img\PPMR.png" alt="Example Image">
+          </div>
+        </div>
+          <p>
+            This is a New York-wide ranking of water pollution levels in the area around Flushing Creek, with lighter colors representing lower levels of pollution and lower rankings in New York City, and darker colors representing higher levels of pollution and higher rankings in New York City.</p>
+        </section>
+        <div id="map33-container" style="position: relative; height: 1000px;">
+          <div id="map33" style="width: 100%; height: 100%;"></div>
+          <div class="map-label">
+            <img src="img\WPLNYC.png" alt="Example Image">
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script  type='text/javascript' src="./map11.js"></script>
+    <script  type='text/javascript' src="./map22.js"></script>
+    <script  type='text/javascript' src="./map33.js"></script>
+
+    <footer>
+      <p class="footer-text">
+        Send me a <a href="mailto:zacquinliu@gmail.com">message</a>
+      </p>
+    </footer>
+
+  </body>
+</html>
