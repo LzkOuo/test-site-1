@@ -10,45 +10,59 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', function () {
-    // This is the function that finds the first symbol layer
-    let layers = map.getStyle().layers;
-    let firstSymbolId;
-    for (var i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol') {
-            firstSymbolId = layers[i].id;
-            break;
-        }
-    }
-
-
     map.addLayer({
-        'id': 'turnstileData',
+        'id': 'schools_nyc',
         'type': 'circle',
         'source': {
             'type': 'geojson',
-            'data': 'data/turnstileData.geojson'
+            'data': 'data/schools_nyc_converted.geojson'
         },
         'paint': {
-            'circle-color': ['interpolate', ['linear'], ['get', 'ENTRIES_DIFF'],
-                -1, '#FF7200',
-                -0.7, '#FF7F27',
-                -0.4, '#ffffff'
-            ],
+            'circle-color': '#ff7f50',
             'circle-stroke-color': '#ffffff',
-            'circle-stroke-width': 1,
-            'circle-radius': ['interpolate', ['exponential', 2], ['zoom'],
-                10, ['interpolate', ['linear'], ['get', 'ENTRIES_DIFF'],
-                    -1, 5,
-                    -0.4, 0.5
-                ],
-                15, ['interpolate', ['linear'], ['get', 'ENTRIES_DIFF'],
-                    -1, 25,
-                    -0.4, 12
-                ]
-            ],
+            'circle-stroke-width': 0.5,
+            'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            10, 2,   // 在 zoom 级别 5 时，半径为 2
+            15, 8,  // 在 zoom 级别 10 时，半径为 6
+            20, 5  // 在 zoom 级别 15 时，半径为 10
+            ]
         }
-    }, firstSymbolId);
+    });
 
+    map.addLayer({
+        'id': 'ChildrenPlayAreas',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/ChildrenPlayAreas.geojson'
+        },
+        'paint': {
+            'circle-color': '#315AA8',
+            'circle-stroke-color': '#ffffff',
+            'circle-stroke-width': 0.5,
+            'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            10, 2,   // 在 zoom 级别 5 时，半径为 2
+            15, 8,  // 在 zoom 级别 10 时，半径为 6
+            20, 5  // 在 zoom 级别 15 时，半径为 10
+            ]
+        }
+    });
+
+    
+    map.addLayer({
+        'id': 'Playgrounds_in_Schoolyard',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/Playgrounds_in_Schoolyard.geojson'
+        },
+        'paint': {
+            'fill-color': '#ff7f50',
+            'fill-opacity': 0.5,
+        }
+    }, 'water');
 
     map.addLayer({
         'id': 'medianIncome',
@@ -63,30 +77,17 @@ map.on('load', function () {
         }
     }, 'water');
 
-    map.addLayer({
-        'id': 'parks_nyc',
-        'type': 'fill',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/parks_nyc.geojson'
-        },
-        'paint': {
-            'fill-color': '#001170',
-            'fill-opacity': 0.25,
-        }
-    }, 'water');
-
 });
 
-// Create the popup
-map.on('click', 'turnstileData', function (e) {
-    let entriesDiff = e.features[0].properties.ENTRIES_DIFF;
-    let entries_06 = e.features[0].properties.ENTRIES_06;
-    let entries_20 = e.features[0].properties.ENTRIES_20;
-    let stationName = e.features[0].properties.stationName;
+// Create the popup （School）
+map.on('click', 'schools_nyc', function (e) {
+    let Name = e.features[0].properties.Name;
+    let Latitude = e.features[0].properties.Latitude;
+    let Longitude = e.features[0].properties.Longitude;
+    let Geographic = e.features[0].properties.Geographic;
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(stationName + '<br>' + entriesDiff + '<br>' + entries_06 + '<br>' + entries_20)
+        .setHTML('-SCHOOL-'+ '<br>' + Name + '<br>' + Latitude + '° N' + '<br>' + Longitude + '° W' + '<br>' + 'Geographic : ' + Geographic)
         .addTo(map);
 });
 // Change the cursor to a pointer when the mouse is over the turnstileData layer.
@@ -97,4 +98,3 @@ map.on('mouseenter', 'turnstileData', function () {
 map.on('mouseleave', 'turnstileData', function () {
     map.getCanvas().style.cursor = '';
 });
-
